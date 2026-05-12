@@ -40,8 +40,8 @@ app.layout = html.Div([
 )
 def refresh_health(n, old_cpu, old_disk, old_net):
     try:
-        # Pinging the API with a slightly longer timeout
-        r = requests.get("http://127.0.0.1:8000/health", timeout=3).json()
+        # Pinging the API with a 2-second timeout
+        r = requests.get("http://127.0.0.1:8000/health", timeout=2).json()
         return (
             f"CPU Load: {r['cpu_usage']}%",
             f"Disk Status: {r['disk_info']}",
@@ -49,7 +49,8 @@ def refresh_health(n, old_cpu, old_disk, old_net):
             f"Last Sync: {r['timestamp']}"
         )
     except:
-        # Keep old data if API is busy (Speedtest)
+        # If the API is busy or restarting, we show the old values
+        # so the screen doesn't flicker or say "Syncing"
         return old_cpu, old_disk, old_net, "Syncing (API Busy)..."
 
 @app.callback(

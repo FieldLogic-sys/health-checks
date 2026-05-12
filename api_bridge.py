@@ -10,13 +10,13 @@ app = FastAPI()
 
 @app.get("/health")
 def get_system_status():
-    # 1. Define the variable first
+    # Fix: Ensure this variable is defined correctly
     disk_target = ["C:\\"] if platform.system() == "Windows" else ["/"]
 
-    # 2. Run the checks
     cpu = sc.check_cpu_load()
     net = nc.check_connectivity()
-    disk = dc.check_disk_usage(disk_target)  # Pass the defined variable
+    # Fix: Ensure we are passing 'disk_target' here
+    disk = dc.check_disk_usage(disk_target)
 
     return {
         "cpu_usage": cpu,
@@ -28,5 +28,5 @@ def get_system_status():
 
 @app.get("/speedtest")
 def run_speedtest():
-    # Regular 'def' (not async) is better here for blocking speedtests
+    # Use regular 'def' to let FastAPI handle the threading for the heavy speedtest
     return nc.get_speed_results()
