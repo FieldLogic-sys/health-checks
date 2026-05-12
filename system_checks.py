@@ -58,7 +58,7 @@ def check_disk_usage(disks=["C:\\"], min_gb=2, min_percent=10):
     return issues  # Disk usage is within limits
 
 
-def check_cpu_load(threshold=75, interval=15):
+def check_cpu_load(threshold=75, interval=1):
     """
     Checks the average CPU load over a specified interval on Windows.
 
