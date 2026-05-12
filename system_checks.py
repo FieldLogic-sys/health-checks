@@ -3,8 +3,9 @@ import psutil
 import platform
 import os
 import time
-import pywin32_system32
+
 from shared_checks import check_disk_usage  # Import from shared_checks
+# import win32api
 
 try:
     import win32api

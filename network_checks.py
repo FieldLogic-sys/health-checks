@@ -16,13 +16,17 @@ def get_speed_results():
     """Checking the connection speed using speedtest and will return a dictionary of the output"""
     try:
         test = st.Speedtest()
+        test.get_best_server()
         test.download()
         test.upload()
         results_dict = test.results.dict()
-        print("Download Speed:", round(results_dict["download"] / 1000000), "Mbps")
-        print("Upload Speed:", round(results_dict["upload"] / 1000000), "Mbps")
-        print("Ping:", results_dict["ping"], "ms")
-        return results_dict
+
+        processed_results = {
+            "download": round(results_dict["download"] / 1_000_000, 2),
+            "upload": round(results_dict["upload"] / 1_000_000, 2),
+            "ping": round(results_dict["ping"], 2)
+        }
+        return processed_results
     except Exception as e:
         print(f"Error performing speed test: {e}")
         return {}

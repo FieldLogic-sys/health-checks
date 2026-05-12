@@ -54,7 +54,7 @@ def main():
                 everything_ok = False
             else:
                 # If the result is not None or False, it's likely a success
-                # No out put needed as the return statements should give the needed information
+                # No output needed as the return statements should give the needed information
                 if check_name == "cpu_load":
                     print(f"CPU load: {result}%")
                 elif check_name == "disk_usage":
